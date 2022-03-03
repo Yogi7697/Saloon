@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <a class="navbar-brand mx-3" href="index.html">Home Page</a>
+
+    </nav>
+    <h2 class="container d-flex justify-content-center my-2">Registration Page:</h2>
+    <div class="container d-flex justify-content-center">
+        <form>
+            <div class="form-group p-3">
+                <label for="formGroupExampleInput">Name:</label>
+                <input type="text" class="form-control" id="usernames" placeholder="Name" autocomplete="off">
+                <h6 id="usercheck"></h6>
+
+            </div>
+            <div class="form-group p-3">
+                <label for="formGroupExampleInput2">Email address:</label>
+                <input type="text" class="form-control" id="email" placeholder="Email address" autocomplete="off">
+                <h6 id="emailcheck"></h6>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+            <div class="form-group p-3">
+                <label for="formGroupExampleInput">Phone Number:</label>
+                <input type="text" class="form-control" id="phone" placeholder="Phone Number" autocomplete="off">
+                <h6 id="phonecheck"></h6>
+
+            </div>
+            <div class="form-group p-3">
+                <label for="formGroupExampleInput">Password:</label>
+                <input type="password" class="form-control" id="pass" placeholder="Password" autocomplete="off">
+                <h6 id="passcheck"> </h6>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your password with anyone
+                    else.</small>
+            </div>
+            <div class="form-group p-3">
+                <label for="formGroupExampleInput">Confirm Password:</label>
+                <input type="password" class="form-control" id="conpass" placeholder="Confirm Password"
+                    autocomplete="off">
+                <h6 id="conpasscheck"></h6>
+
+            </div>
+            <div class="text-center">
+                <button type="button" id="submitbtn" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+</body>
+
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#usercheck').hide();
+        $('#emailcheck').hide();
+        $('#phonecheck').hide();
+        $('#passcheck').hide();
+        $('#conpasscheck').hide();
+
+        var name_err = true;
+        var email_err = true;
+        var phone_err = true;
+        var pass_err = true;
+        var conpass_err = true;
+
+
+        // Name
+        $('#usernames').keyup(function () {
+            username_check();
+        })
+        function username_check() {
+            var name_val = $('#usernames').val();
+
+            if (name_val.length == '') {
+                $('#usercheck').show();
+                $('#usercheck').html('**Please fill the name');
+                $('#usercheck').focus();
+                $('#usercheck').css("color", "red");
+                name_err = false;
+                return false;
+            }
+            else {
+                $('#usercheck').hide();
+            }
+
+
+            if ((name_val.length < 4) || (name_val.length > 15)) {
+                $('#usercheck').show();
+                $('#usercheck').html('**Name length must be between 4 and 15');
+                $('#usercheck').focus();
+                $('#usercheck').css("color", "red");
+                name_err = false;
+                return false;
+            }
+            else {
+                $('#usercheck').hide();
+            }
+        }
+
+
+        // Email
+        $('#email').keyup(function () {
+            emails_check();
+        })
+        function emails_check() {
+            var email_val = $('#email').val();
+
+            if (email_val.length == '') {
+                $('#emailcheck').show();
+                $('#emailcheck').html('**Please fill the email');
+                $('#emailcheck').focus();
+                $('#emailcheck').css("color", "red");
+                email_err = false;
+                return false;
+            }
+            else {
+                $('#emailcheck').hide();
+            }
+
+
+            if (isEmail(email_val) == false) {
+                $('#emailcheck').show();
+                $('#emailcheck').html('please enter the valid email address');
+                $('#emailcheck').focus();
+                $('#emailcheck').css("color", "red");
+                email_err = false;
+                return false;
+            } else {
+                $('#emailcheck').hide();
+            }
+
+
+        }
+
+
+        // Phone
+        $('#phone').keyup(function () {
+            phones_check();
+        })
+        function phones_check() {
+            var phone_val = $('#phone').val();
+
+            if (phone_val.length == '') {
+                $('#phonecheck').show();
+                $('#phonecheck').html('**Please fill the number');
+                $('#phonecheck').focus();
+                $('#phonecheck').css("color", "red");
+                phone_err = false;
+                return false;
+            }
+            else {
+                $('#phonecheck').hide();
+            }
+
+            if (isNaN(phone_val) == false) {
+                $('#phonecheck').show();
+                $('#phonecheck').html('**Please fill valid number');
+                $('#phonecheck').focus();
+                $('#phonecheck').css("color", "red");
+                email_err = false;
+                return false;
+            }
+            else {
+                $('#phonecheck').hide();
+            }
+
+            if ((phone_val.length < 10) || (phone_val.length > 10)) {
+                $('#phonecheck').show();
+                $('#phonecheck').html('**Phone Number length must be 10');
+                $('#phonecheck').focus();
+                $('#phonecheck').css("color", "red");
+                email_err = false;
+                return false;
+            }
+            else {
+                $('#phonecheck').hide();
+            }
+        }
+
+
+
+        // Pass
+        $('#pass').keyup(function () {
+            pass_check();
+        })
+
+        function pass_check() {
+            var pass_val = $('#pass').val();
+
+
+            if (pass_val.length == '') {
+                $('#passcheck').show();
+                $('#passcheck').html('**Please fill the Password');
+                $('#passcheck').focus();
+                $('#passcheck').css("color", "red");
+                pass_err = false;
+                return false;
+            }
+            else {
+                $('#passcheck').hide();
+            }
+
+            if ((pass_val.length < 5) || (pass_val.length > 30)) {
+                $('#passcheck').show();
+                $('#passcheck').html('**Password length must be between 5 and 30');
+                $('#passcheck').focus();
+                $('#passcheck').css("color", "red");
+                pass_err = false;
+                return false;
+            }
+            else {
+                $('#emailcheck').hide();
+            }
+        }
+
+        // Con pass
+        $('#conpass').keyup(function () {
+            conpass_check();
+        })
+
+        function conpass_check() {  
+            var conpass_val = $('#conpass').val();
+            var pass_val = $('#pass').val();
+
+            if (pass_val != conpass_val) {
+                $('#conpasscheck').show();
+                $('#conpasscheck').html('**Password are not matching');
+                $('#conpasscheck').focus();
+                $('#conpasscheck').css("color", "red");
+                conpass_err = false;
+                return false;
+            }
+            else {
+                $('#conpasscheck').hide();
+            }
+
+        }
+
+        $("#submitbtn").click(function () {
+
+            name_err = true;
+            email_err = true;
+            phone_err = true;
+            pass_err = true;
+            conpass_err = true;
+
+            username_check();
+            emails_check();
+            phones_check();
+            pass_check();
+            conpass_check();
+
+
+
+            var name_val = $('#usernames').val();
+            console.log(name_val)
+
+            var email_val = $('#email').val();
+            console.log(email_val)
+
+            var phone_val = $('#phone').val();
+            console.log(phone_val)
+
+            var pass_val = $('#pass').val();
+            console.log(pass_val)
+
+
+            if (name_err === true && email_err === true && phone_err === true && pass_err === true && conpass_err === true) {
+
+                $.ajax({
+                    url: "api/register.php",
+                    type: "post",
+                    data: { name: name_val, email: email_val, phone: phone_val, pass: pass_val },
+                    success: function (response) {
+                        alert(response);
+                        window.location.href = "login.php";
+                    }
+                });
+
+                // alert("Registration Successfull");
+                return true;
+            }
+             else {
+                alert("Please Fill the form Correctly");
+                return false;
+            }
+
+
+
+
+        });
+
+
+
+
+
+    });
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+
+    function isNaN(phone) {
+        var regax = /^[0-9]+$/;
+        return regax.test(phone);
+
+    }
+
+
+
+</script>
